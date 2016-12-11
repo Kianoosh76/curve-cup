@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MSCATT CURVE CUP 1</title>
+</head>
+<body>
+    {% for group in groups %}
+        <a href="{% url 'group' %}?group={{group.pk}}">{{group.name}}</a>
+    {% endfor %}
+    <form method="post" action="">
+        {% csrf_token %}
+        <input type="hidden" name="group" value="{{current_group.pk}}">
+        <table>
+            {% for player in players %}
+            <tr>
+                <td>{{player.name}}</td>
+                {% for score in player.scores.all %}
+                    <td>{{score.score}}</td>
+                {% endfor %}
+                <td><input type="text" name="{{player.pk}}"></td>
+                <td>{{player.total_score}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <button type="submit">Save</button>
+    </form>
+</body>
+</html>

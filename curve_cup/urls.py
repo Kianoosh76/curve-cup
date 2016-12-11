@@ -16,6 +16,9 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 
+from groups.views import GroupsView
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^$', GroupsView.as_view(), name='group'),
 ]
