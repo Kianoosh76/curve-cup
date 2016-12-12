@@ -3,27 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <title>MSCATT CURVE CUP 1</title>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//cdn.rawgit.com/morteza/bootstrap-rtl/v3.3.4/dist/css/bootstrap-rtl.min.css">
+
 </head>
 <body>
-    {% for group in groups %}
-        <a href="{% url 'group' %}?group={{group.pk}}">{{group.name}}</a>
-    {% endfor %}
-    <form method="post" action="">
+<div class="container">
+    <div class="row">
+        <div class="btn-group" style="margin-top: 10px;margin-bottom: 30px;">
+            {% for group in groups %}
+                <a href="{% url 'group' %}?group={{ group.pk }}" class="btn btn-primary">{{ group.name }}</a>
+            {% endfor %}
+        </div>
+    </div>
+    <form method="post" action="" class="col-sm-5">
         {% csrf_token %}
-        <input type="hidden" name="group" value="{{current_group.pk}}">
-        <table>
+        <input type="hidden" name="group" value="{{ current_group.pk }}">
+        <table class="table table-responsive table-striped table-hover">
             {% for player in players %}
-            <tr>
-                <td>{{player.name}}</td>
-                {% for score in player.scores.all %}
-                    <td>{{score.score}}</td>
-                {% endfor %}
-                <td><input type="text" name="{{player.pk}}"></td>
-                <td>{{player.total_score}}</td>
-            </tr>
+                <tr>
+                    <td>{{ player.name }}</td>
+                    {% for score in player.scores.all %}
+                        <td>{{ score.score }}</td>
+                    {% endfor %}
+                    <td><input type="text" name="{{ player.pk }}" class="form-control"></td>
+                    <td>{{ player.total_score }}</td>
+                </tr>
             {% endfor %}
         </table>
-        <button type="submit">Save</button>
+        <button type="submit" class="btn btn-success">Save</button>
     </form>
+</div>
 </body>
 </html>
